@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TodoSignalsService } from 'src/app/services/todo-signals.service';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-todo-form',
@@ -17,13 +19,15 @@ import { TodoSignalsService } from 'src/app/services/todo-signals.service';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
   ],
   templateUrl: './todo-form.component.html',
   styleUrls: []
 })
 export class TodoFormComponent {
   private todoSignalsService = inject(TodoSignalsService);
+  private dialogRefService = inject(MatDialogRef<HeaderComponent>);
   public allTodos = this.todoSignalsService.todoState();
 
   public todosForm = new FormGroup({
@@ -39,6 +43,11 @@ export class TodoFormComponent {
       const done = false;
 
       this.todoSignalsService.updateTodos({id, title, description, done});
+      this.dialogRefService.close();
     }
+  }
+
+  public handleCloseModal(): void {
+    this.dialogRefService.close();
   }
 }
