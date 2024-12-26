@@ -26,7 +26,7 @@ import { Todo } from 'src/app/models/model/todo.model';
 export class TodoCardComponent implements OnInit {
   private todoSignalsService = inject(TodoSignalsService);
   private todosSignal = this.todoSignalsService.todoState;
-  private todosList = computed(() => this.todosSignal());
+  public todosList = computed(() => this.todosSignal());
 
   public ngOnInit(): void {
     this.getTodosInLocalStorage();
